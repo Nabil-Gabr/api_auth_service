@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happy_tech_mastering_api_with_flutter/core/services/get_it_service.dart';
 import 'package:happy_tech_mastering_api_with_flutter/cubit/custom_bloc_observer.dart';
 import 'package:happy_tech_mastering_api_with_flutter/cubit/user_cubit.dart';
+import 'package:happy_tech_mastering_api_with_flutter/domain/repo/auth_repo.dart';
 import 'package:happy_tech_mastering_api_with_flutter/screens/sign_in_screen.dart';
 
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer=CustomBlocObserver();
+  setupGetIt();
   runApp(
     BlocProvider(
-      create: (context) => UserCubit(),
+      create: (context) => UserCubit(getIt.get<AuthRepo>()),
       child: const MyApp(),
     ),
   );
